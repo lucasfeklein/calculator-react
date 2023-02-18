@@ -4,7 +4,9 @@ export default function Calculator() {
 
     const [display, setDisplay] = useState('0')
     const [oldDisplay, setOldDisplay] = useState('0')
-    const [operator, setOperator] = useState()
+    const [operator, setOperator] = useState('')
+    // aux used so it doesnt set display '0' when an operator is clicked
+    const [aux, setAux] = useState(false)
 
     function handleClick(e) {
 
@@ -13,24 +15,25 @@ export default function Calculator() {
         if (value === 'C') {
             setDisplay('0')
             setOldDisplay('0')
+            setOperator('')
         } else if (value === "←") {
             setDisplay(display.slice(0, -1))
         } else if (value === '+') {
             setOldDisplay(display)
             setOperator('+')
-            setDisplay('0')
+            setAux(true)
         } else if (value === '×') {
             setOldDisplay(display)
             setOperator('×')
-            setDisplay('0')
+            setAux(true)
         } else if (value === '÷') {
             setOldDisplay(display)
-            setOperator('/')
-            setDisplay('0')
+            setOperator('÷')
+            setAux(true)
         } else if (value === '-') {
             setOldDisplay(display)
             setOperator('-')
-            setDisplay('0')
+            setAux(true)
         } else if (value === '=') {
             if (operator === '+') {
                 setDisplay(Number(display) + Number(oldDisplay))
@@ -41,10 +44,16 @@ export default function Calculator() {
             } else if (operator === '÷') {
                 setDisplay(Number(oldDisplay) / Number(display))
             }
+            setOperator('')
         } else if (display[0] === '0') {
             setDisplay(display.substring(1) + value)
         } else {
-            setDisplay(prevDisplay => prevDisplay + value)
+            if (operator !== '' && aux === true) {
+                setDisplay(value)
+                setAux(false)
+            } else {
+                setDisplay(prevDisplay => prevDisplay + value)
+            }
         }
     }
 

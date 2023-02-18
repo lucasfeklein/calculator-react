@@ -57,3 +57,12 @@ button {
   background-color: #FF339B;
   color: white;
 }
+
+.operator:focus {
+  background-color: white;
+  color: #FF339B;
+}
+
+button:hover {
+  background-color: lightblue;
+}
