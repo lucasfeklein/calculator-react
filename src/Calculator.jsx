@@ -2,8 +2,8 @@ import { useState } from "react"
 
 export default function Calculator() {
 
-    const [display, setDisplay] = useState('0')
-    const [oldDisplay, setOldDisplay] = useState('0')
+    const [display, setDisplay] = useState('')
+    const [oldDisplay, setOldDisplay] = useState('')
     const [operator, setOperator] = useState('')
     // set aux to true when an operator is clicked to start a new string of number
     const [aux, setAux] = useState(false)
@@ -13,8 +13,8 @@ export default function Calculator() {
         const value = e.target.innerText
 
         if (value === 'C') {
-            setDisplay('0')
-            setOldDisplay('0')
+            setDisplay('')
+            setOldDisplay('')
             setOperator('')
         } else if (value === "←") {
             setDisplay(display.slice(0, -1))
@@ -45,6 +45,7 @@ export default function Calculator() {
                 setDisplay(Number(oldDisplay) / Number(display))
             }
             setOperator('')
+            setAux(true)
         } else if (display[0] === '0') {
             setDisplay(display.substring(1) + value)
         } else {
