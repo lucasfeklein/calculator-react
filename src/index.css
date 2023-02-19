@@ -61,6 +61,11 @@ button {
   grid-column: span 3;
 }
 
+/* need to set max-width in arrow button because the size is bugging in small devices */
+.arrow-button {
+  max-width: 78.41px;
+}
+
 .operator {
   background-color: #FF339B;
   color: white;

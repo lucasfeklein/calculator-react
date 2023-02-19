@@ -80,7 +80,7 @@ export default function Calculator() {
                 <span>{display ? display : 0}</span>
             </div>
             <button onClick={handleClick} className="c-button">C</button>
-            <button onClick={handleClick}>&larr;</button>
+            <button onClick={handleClick} className="arrow-button">&larr;</button>
             <button onClick={handleClick} className="operator">&divide;</button>
             <button onClick={handleClick}>7</button>
             <button onClick={handleClick}>8</button>
