@@ -5,7 +5,7 @@ export default function Calculator() {
     const [display, setDisplay] = useState('0')
     const [oldDisplay, setOldDisplay] = useState('0')
     const [operator, setOperator] = useState('')
-    // aux used so it doesnt set display '0' when an operator is clicked
+    // set aux to true when an operator is clicked to start a new string of number
     const [aux, setAux] = useState(false)
 
     function handleClick(e) {
@@ -48,7 +48,7 @@ export default function Calculator() {
         } else if (display[0] === '0') {
             setDisplay(display.substring(1) + value)
         } else {
-            if (operator !== '' && aux === true) {
+            if (aux === true) {
                 setDisplay(value)
                 setAux(false)
             } else {
