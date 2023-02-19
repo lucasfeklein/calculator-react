@@ -5,8 +5,9 @@ export default function Calculator() {
     const [display, setDisplay] = useState('')
     const [oldDisplay, setOldDisplay] = useState('')
     const [operator, setOperator] = useState('')
-    // set aux to true when an operator is clicked to start a new string of number
+    // set aux to true when an operator is clicked to start a new string of number instead of reseting display to '0' everytime
     const [aux, setAux] = useState(false)
+    const [equation, setEquation] = useState('')
 
     function handleClick(e) {
 
@@ -16,6 +17,7 @@ export default function Calculator() {
             setDisplay('')
             setOldDisplay('')
             setOperator('')
+            setEquation('')
         } else if (value === "←") {
             setDisplay(display.slice(0, -1))
         } else if (value === '+') {
@@ -44,12 +46,25 @@ export default function Calculator() {
             } else if (operator === '÷') {
                 setDisplay(Number(oldDisplay) / Number(display))
             }
-            setOperator('')
+            setOperator('=')
             setAux(true)
+            setEquation(prevEquation => {
+                if (equation === '' && operator !== '=') {
+                    return setEquation(`${oldDisplay} ${operator} ${display} =`)
+                } else if (operator !== '=') {
+                    return setEquation(`${prevEquation.slice(0, -1)} ${operator} ${display} =`)
+                } else {
+                    return ''
+                }
+            })
         } else if (display[0] === '0') {
             setDisplay(display.substring(1) + value)
         } else {
-            if (aux === true) {
+            if (aux === true && operator === '=') {
+                setDisplay(value)
+                setAux(false)
+                setEquation('')
+            } else if (aux === true) {
                 setDisplay(value)
                 setAux(false)
             } else {
@@ -60,7 +75,10 @@ export default function Calculator() {
 
     return (
         <div className="calculator-container">
-            <div className="screen">{display ? display : 0}</div>
+            <div className="screen">
+                {equation && <span className="equation">{equation}</span>}
+                <span>{display ? display : 0}</span>
+            </div>
             <button onClick={handleClick} className="c-button">C</button>
             <button onClick={handleClick}>&larr;</button>
             <button onClick={handleClick} className="operator">&divide;</button>
