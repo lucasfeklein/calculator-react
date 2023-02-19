@@ -20,6 +20,7 @@ body {
   width: 400px;
   padding: 1.5em;
   border-radius: 10px;
+  overflow-x: hidden;
 }
 
 .screen {
@@ -49,7 +50,7 @@ button {
   border: none;
   border-radius: 10px;
   height: 70px;
-  font-size: 3rem;
+  font-size: 2rem;
   cursor: pointer;
 }
 
